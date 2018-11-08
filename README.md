@@ -1,1 +1,1 @@
-# retreat-app
+# react-boilerplate

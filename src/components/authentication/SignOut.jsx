@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { GoogleLogin } from "react-google-login";
+import { GoogleLogout } from "react-google-login";
 
-import { signIn, signOut } from "common/authenticate.js";
+import { signOut } from "common/authenticate.js";
 
 const CLIENT_ID = process.env.CLIENT_ID;
 
@@ -17,23 +17,18 @@ class SignIn extends Component {
     this.state = INITIAL_STATE;
   }
 
-  onSuccess (response) {
-    let { dispatch } = this.props;
+  onLogoutSuccess (response) {
+    let { dispatch, history } = this.props;
     dispatch(signOut());
-    dispatch(signIn(response));
-  }
-
-  onFailure (response) {
-
+    history.push("/");
   }
 
   render () {
     return (
-      <GoogleLogin
-        buttonText="Login"
+      <GoogleLogout
+        buttonText="Logout"
         clientId={ CLIENT_ID }
-        onFailure={ (e) => this.onFailure(e) }
-        onSuccess={ (e) => this.onSuccess(e) }
+        onLogoutSuccess={ (e) => this.onLogoutSuccess(e) }
       />
     );
   }

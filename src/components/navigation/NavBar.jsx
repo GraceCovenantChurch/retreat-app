@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Navbar, NavbarBrand, Nav, NavItem } from "reactstrap";
 
 import SignIn from "components/authentication/SignIn";
+import SignOut from "components/authentication/SignOut";
 
 import "./NavBar.scss";
 
@@ -24,7 +25,7 @@ class NavBar extends Component {
   }
 
   render () {
-    let { history } = this.props;
+    let { history, authenticator } = this.props;
 
     return (
       <Navbar color="dark"
@@ -35,9 +36,16 @@ class NavBar extends Component {
         <Nav className="ml-auto"
           navbar
         >
-          <NavItem>
-            <SignIn history={ history }/>
-          </NavItem>
+          { authenticator.isAuthenticated &&
+            <NavItem>
+              <SignOut history={ history }/>
+            </NavItem>
+          }
+          { !authenticator.isAuthenticated &&
+            <NavItem>
+              <SignIn history={ history }/>
+            </NavItem>
+          }
         </Nav>
       </Navbar>
     );
@@ -45,7 +53,8 @@ class NavBar extends Component {
 }
 
 NavBar.propTypes = {
-  history: PropTypes.shape({})
+  history: PropTypes.shape({}).isRequired,
+  authenticator: PropTypes.shape({}).isRequired,
 };
 
 export default NavBar;

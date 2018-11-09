@@ -61,4 +61,4 @@ dist/*
 .env
 
 # Linter
-lint-report
+lint-report.html

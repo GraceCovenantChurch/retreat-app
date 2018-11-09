@@ -17,7 +17,8 @@ const authenticator = (state = INITIAL_STATE.authenticator, action) => {
       });
     case AUTHENTICATE_SUCCESS:
       return Object.assign({}, state, {
-        isAuthenticated: true
+        isAuthenticated: true,
+        user: action.user
       });
     default:
       return state;
